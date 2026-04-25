@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { DataUploader } from './components/DataUploader';
 import { OverallChart } from './components/OverallChart';
 import { ModelBreakdownChart } from './components/ModelBreakdownChart';
+import { BusSchematic } from './components/BusSchematic';
 import type { BusMileage } from './types';
 import { RotateCw, Pause, Play, BarChart3 } from 'lucide-react';
 
@@ -89,6 +90,7 @@ function App() {
 
       {/* Main Content Area */}
       <main className={`flex-1 flex flex-col relative ${rawData.length === 0 ? 'items-center justify-center' : 'items-stretch'}`}>
+        <BusSchematic activeView={activeView} />
         {rawData.length === 0 ? (
           <div className="w-full max-w-xl">
              <div className="panel-sci-fi p-8">
