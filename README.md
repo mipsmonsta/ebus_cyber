@@ -1,73 +1,79 @@
-# React + TypeScript + Vite
+# ⚡ E-BUS CYBER DASHBOARD
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Build Status](https://img.shields.io/badge/status-active-00E5FF?style=for-the-badge)
+![Tech Stack](https://img.shields.io/badge/React_19-Vite_8-FF5500?style=for-the-badge)
+![Aesthetic](https://img.shields.io/badge/Aesthetic-Cyberpunk-7B61FF?style=for-the-badge)
 
-Currently, two official plugins are available:
+A futuristic, high-performance monitoring dashboard designed for Electric Bus (eBus) Operations Control Centers (OCC). Built with a "Cyber-HUD" aesthetic, this interactive visualization tool tracks fleet mileage, model-specific performance, and cumulative operational metrics.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Overview
 
-## React Compiler
+`ebus_cyber` transforms raw operational data into a mission-critical visual interface. It features auto-rotating views, glowing telemetry indicators, and real-time data parsing to provide OCC operators with a seamless overview of fleet health and performance.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Key Features
+- **Cyber-HUD Interface:** Stylized sci-fi panels with glowing animations and decorative corners.
+- **Dynamic Data Ingestion:** Integrated CSV parser (PapaParse) for seamless mileage data updates.
+- **Automated Operations:** Toggleable auto-rotation between "Overall Fleet" and "Model Breakdown" views.
+- **Advanced Visualizations:** 
+  - **Overall Mileage:** Multi-month cumulative trend using high-contrast area charts.
+  - **Model Breakdown:** Real-time distribution by bus model (BYD, MAN, Mercedes, etc.) for the latest telemetry period.
+- **Responsive Design:** Optimized for large-scale OCC wall displays and monitoring terminals.
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Frontend:** [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
+- **Build Tool:** [Vite 8](https://vitejs.dev/)
+- **Styling:** [Tailwind CSS 4](https://tailwindcss.com/) (Custom Cyber Theme)
+- **Visualizations:** [Recharts 3](https://recharts.org/)
+- **Data Parsing:** [PapaParse](https://www.papaparse.com/)
+- **Icons:** [Lucide React](https://lucide.dev/)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 📦 Getting Started
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Prerequisites
+- [Node.js](https://nodejs.org/) (v18.0 or higher recommended)
+- [npm](https://www.npmjs.com/)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/mipsmonsta/ebus_cyber.git
+   cd ebus_cyber
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+### Development
+Launch the dashboard in development mode:
+```bash
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Production Build
+Compile and optimize for deployment:
+```bash
+npm run build
+npm run preview
 ```
+
+## 📂 Data Structure
+
+The dashboard expects CSV files in the following format (samples located in `bus_models_data/`):
+
+| Month | BusModel | Mileage |
+| :--- | :--- | :--- |
+| 2025-01 | BYD K9 | 4500 |
+| 2025-01 | MAN Lion's City | 3800 |
+
+## 🎨 Aesthetic Guidelines
+
+This project adheres to a **Cyberpunk/Sci-Fi** design language:
+- **Primary Colors:** `cyber-bg` (#020A18), `cyber-accent` (#00E5FF), `cyber-highlight` (#FF5500).
+- **UI Components:** Custom `.panel-sci-fi` utility classes with decorative SVG corners.
+- **Animations:** `animate-pulse-glow` for active system indicators and `animate-digital-load` for chart transitions.
+
+---
+
+*Terminal: EB-OCC-42526 // System Integrity: Nominal*
