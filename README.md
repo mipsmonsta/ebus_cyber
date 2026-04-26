@@ -58,7 +58,7 @@ npm run build
 npm run preview
 ```
 
-### 🎯 One-Click Release (Government-Ready)
+### 🎯 One-Click Release (running the dashboard in strict windows environment)
 To generate a completely self-contained, single-file HTML dashboard for restricted environments:
 ```bash
 npm run release
