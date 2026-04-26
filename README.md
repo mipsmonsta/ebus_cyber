@@ -85,6 +85,25 @@ This project adheres to a **Cyberpunk/Sci-Fi** design language:
 - **UI Components:** Custom `.panel-sci-fi` utility classes with decorative SVG corners.
 - **Animations:** `animate-pulse-glow` for active system indicators and `animate-digital-load` for chart transitions.
 
+## 🛠️ Maintenance & Future Updates
+
+The single-file HTML architecture is "set and forget." You do not need to re-configure the conversion logic when adding new features.
+
+### Updating Factory Default Data
+If you want to change the CSV data that loads automatically on boot:
+1.  Place the new CSV in `public/data/`.
+2.  Update `src/data/defaultData.ts`:
+    - Add a raw import: `import newData from '../../public/data/your-file.csv?raw';`
+    - Add it to the `EMBEDDED_DATA` array.
+3.  Run `npm run release`.
+
+### Adding Assets (Images/Icons)
+- **Icons:** Continue using `Lucide React` for best performance.
+- **Images:** Any image imported in React will be automatically Base64-encoded and baked into the HTML. To keep the file size portable, try to keep images under 1MB.
+
+### Feature Development
+Simply develop in `src/` as a normal React app. Every time you run `npm run release`, the latest code is bundled into the self-contained HTML file.
+
 ---
 
 *Terminal: EB-OCC-42526 // System Integrity: Nominal*
