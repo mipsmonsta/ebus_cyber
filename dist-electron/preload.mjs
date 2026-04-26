@@ -1,0 +1,1 @@
+let e=require(`electron`);e.contextBridge.exposeInMainWorld(`electron`,{readDefaultData:()=>e.ipcRenderer.invoke(`read-default-data`),onMainProcessMessage:t=>{e.ipcRenderer.on(`main-process-message`,(e,n)=>t(n))}});

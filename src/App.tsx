@@ -6,17 +6,7 @@ import { BusSchematic } from './components/BusSchematic';
 import type { BusMileage } from './types';
 import { RotateCw, Pause, Play, BarChart3, Settings, X } from 'lucide-react';
 import Papa from 'papaparse';
-
-const DEFAULT_FILES = [
-  'Alexander_Dennis_Enviro200EV.csv',
-  'BYD_K9.csv',
-  'MAN_Lions_City.csv',
-  'Mercedes_Benz_eCitaro.csv',
-  'Proterra_ZX5.csv',
-  'Solaris_Urbino_12_Electric.csv',
-  'Volvo_7900.csv',
-  'Yutong_E12.csv'
-];
+import { EMBEDDED_DATA } from './data/defaultData';
 
 function App() {
   const [rawData, setRawData] = useState<BusMileage[]>([]);
@@ -34,56 +24,53 @@ function App() {
     localStorage.setItem('ebus_rotation_interval', rotationInterval.toString());
   }, [rotationInterval]);
 
-  // Auto-load default data
+  // Load factory default data (embedded in the bundle)
   useEffect(() => {
-    const loadDefaultData = async () => {
+    const loadDefaultData = () => {
       setIsLoading(true);
       const allData: BusMileage[] = [];
       
-      const parsePromises = DEFAULT_FILES.map(fileName => {
+      EMBEDDED_DATA.forEach(({ fileName, content }) => {
         const modelName = fileName.replace(/\.[^/.]+$/, "").replace(/_/g, " ");
-        return new Promise<void>((resolve) => {
-          Papa.parse(`/data/${fileName}`, {
-            download: true,
-            header: true,
-            dynamicTyping: true,
-            skipEmptyLines: true,
-            transformHeader: (header) => header.trim().replace(/^\ufeff/, ""),
-            complete: (results) => {
-              const mappedData = results.data
-                .map((row: any) => {
-                  const monthKey = Object.keys(row).find(k => k.toLowerCase() === 'month' || k.toLowerCase().includes('month'));
-                  const mileageKey = Object.keys(row).find(k => k.toLowerCase() === 'mileage' || k.toLowerCase().includes('mileage'));
-                  
-                  if (monthKey && mileageKey && row[monthKey] !== undefined) {
-                    const mil = parseFloat(String(row[mileageKey]));
-                    if (!isNaN(mil)) {
-                      return {
-                        Month: String(row[monthKey]).trim(),
-                        Mileage: mil,
-                        BusModel: modelName,
-                      };
-                    }
+        
+        Papa.parse(content, {
+          header: true,
+          dynamicTyping: true,
+          skipEmptyLines: true,
+          transformHeader: (header) => header.trim().replace(/^\ufeff/, ""),
+          complete: (results) => {
+            const mappedData = results.data
+              .map((row: any) => {
+                const monthKey = Object.keys(row).find(k => k.toLowerCase() === 'month' || k.toLowerCase().includes('month'));
+                const mileageKey = Object.keys(row).find(k => k.toLowerCase() === 'mileage' || k.toLowerCase().includes('mileage'));
+                
+                if (monthKey && mileageKey && row[monthKey] !== undefined) {
+                  const mil = parseFloat(String(row[mileageKey]));
+                  if (!isNaN(mil)) {
+                    return {
+                      Month: String(row[monthKey]).trim(),
+                      Mileage: mil,
+                      BusModel: modelName,
+                    };
                   }
-                  return null;
-                })
-                .filter((item): item is BusMileage => item !== null);
-              allData.push(...mappedData);
-              resolve();
-            },
-            error: () => resolve()
-          });
+                }
+                return null;
+              })
+              .filter((item): item is BusMileage => item !== null);
+            allData.push(...mappedData);
+          }
         });
       });
 
-      await Promise.all(parsePromises);
       if (allData.length > 0) {
         setRawData(allData);
       }
       setIsLoading(false);
     };
 
-    loadDefaultData();
+    // Small delay to show the "booting" sequence
+    const timer = setTimeout(loadDefaultData, 800);
+    return () => clearTimeout(timer);
   }, []);
 
   // Rotation logic
