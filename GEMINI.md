@@ -12,21 +12,19 @@
 - **Icons:** Lucide React
 
 ## Architecture
-- **`src/App.tsx`**: The main entry point containing the dashboard layout, state management (raw data, active view), and auto-rotation logic between "Overall" and "Breakdown" views.
+- **`src/App.tsx`**: The main entry point containing the dashboard layout, state management (raw data, active view), and auto-rotation logic.
+- **`src/data/defaultData.ts`**: Static embedding point for "Factory Default" CSV data. Uses Vite `?raw` imports to bake data into the single-file bundle.
 - **`src/components/`**:
-  - `DataUploader.tsx`: Handles CSV file ingestion.
+  - `DataUploader.tsx`: Handles CSV file ingestion for dynamic updates via Settings.
   - `OverallChart.tsx`: Displays aggregated monthly mileage for the entire fleet.
   - `ModelBreakdownChart.tsx`: Shows mileage distribution by bus model for the latest available month.
 - **`src/types.ts`**: Defines core data interfaces (`BusMileage`, `MonthlyTotal`, `ModelTotal`).
-- **`bus_models_data/`**: Contains seed data in CSV format for various bus models (e.g., BYD K9, MAN Lion's City, Mercedes eCitaro).
-- **`index.css` & `App.css`**: Contain custom CSS for the sci-fi UI elements (panels, corners, glowing animations).
 
 ## Building and Running
 - **Start Development Server:** `npm run dev`
-- **Build for Production:** `npm run build`
+- **Standard Build:** `npm run build`
+- **One-Click Release:** `npm run release` (Produces a standalone timestamped HTML file in `release/`).
 - **Lint Code:** `npm run lint`
-- **Preview Production Build:** `npm run preview`
-- **Quick Run Script:** `run_dashboard.bat` (Windows batch script to serve the build)
 
 ## Development Conventions
 ### UI & Styling

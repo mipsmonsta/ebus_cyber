@@ -58,6 +58,17 @@ npm run build
 npm run preview
 ```
 
+### 🎯 One-Click Release (Government-Ready)
+To generate a completely self-contained, single-file HTML dashboard for restricted environments:
+```bash
+npm run release
+```
+This command:
+1.  Bakes current CSV data (factory defaults) into the code.
+2.  Inlines all CSS, JS, and Assets.
+3.  Saves a timestamped file to the `release/` folder (e.g., `E-Bus-Dashboard_2026-04-26.html`).
+4.  **Deployment:** Simply copy this single HTML file to any machine and double-click to run. No server or installation required.
+
 ## 📂 Data Structure
 
 The dashboard expects CSV files in the following format (samples located in `bus_models_data/`):
