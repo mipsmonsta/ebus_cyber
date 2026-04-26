@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "release": "npm run build && powershell -Command \"$date=(Get-Date -Format 'yyyy-MM-dd_HHmm'); if (!(Test-Path release)) { New-Item -ItemType Directory -Path release }; Copy-Item dist/index.html release/E-Bus-Dashboard_$date.html; Write-Host '--- RELEASE COMPLETE: Check the release/ folder ---'\""
   },
   "dependencies": {
     "lucide-react": "^1.11.0",
